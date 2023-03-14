@@ -48,13 +48,12 @@ app.post('/addTask', async (req, res) => {
 app.put('/taskCompletion', async (req, res) => {
   try {
     await db.collection('tasks').updateOne({
-      date: req.body.date,
-      title: req.body.title,
-      start: req.body.start
+      date: req.body.findDate,
+      title: req.body.findTRtle,
       },
       {
         $set:{
-          completed: !req.body.completed
+          completed: !req.body.findCompletion
         }
       },
       {
@@ -70,7 +69,7 @@ app.put('/taskCompletion', async (req, res) => {
 
 app.delete('/deleteTask', async (req, res) => {
   try {
-    await db.collection('tasks').deleteOne({date: req.body.date, title: req.body.title, start: req.body.start});
+    await db.collection('tasks').deleteOne({date: req.body.delDate, title: req.body.delTitle});
     console.log('Task Deleted');
     res.json('Task Deleted');
   } catch (err) {
